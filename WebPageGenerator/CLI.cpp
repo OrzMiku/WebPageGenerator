@@ -204,7 +204,6 @@ void CLI::addComponent(WebPage* page) {
 	cout << "4. Add Input" << endl;
 	cout << "5. Add Table" << endl;
 	cout << "0. Back" << endl;
-	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	int choice = number_read();
 	switch (choice) {
 	case 0:
@@ -307,7 +306,6 @@ void CLI::addInput(WebPage* page) {
 	cout << "2. Password" << endl;
 	cout << "3. Submit" << endl;
 	cout << "Input type: ";
-	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	int choice =number_read();
 	switch (choice) {
 	case 1:
@@ -394,15 +392,19 @@ void CLI::addTable(WebPage* page) {
 }
 void CLI::componentsList(WebPage* page) {
 	for (int i = 0; i < page->getComponents().size(); i++) {
-		cout << i << ". " << page->getComponents()[i]->getClassName() << endl;
+		cout << i+1 << ". " << page->getComponents()[i]->getClassName() << endl;
 	}
 }
 void CLI::editComponent(WebPage* page) {
 	componentsList(page);
+	cout << "0. Back" << endl;
 	cout << "Component to edit: ";
-	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	int choice = 0;
-	choice=number_read();
+	choice=number_read()-1;
+	if (choice < 0 || choice > page->getComponents().size()) {
+		pageMenu(page);
+		return;
+	}
 	string className = page->getComponents()[choice]->getClassName();
 	if (className == "Heading") {
 		editHeading(page, choice);
@@ -430,11 +432,13 @@ void CLI::editHeading(WebPage* page, int index) {
 	int level = number_read();
 	((Heading*)page->getComponents()[index])->setValue(text);
 	((Heading*)page->getComponents()[index])->setLevel(level);
+	editComponent(page);
 }
 void CLI::editParagraph(WebPage* page, int index) {
 	cout << "Paragraph text: ";
 	string text = line_read();
 	((Paragraph*)page->getComponents()[index])->setValue(text);
+	editComponent(page);
 }
 void CLI::editImage(WebPage* page, int index) {
 	cout << "Image url: ";
@@ -448,6 +452,7 @@ void CLI::editImage(WebPage* page, int index) {
 	if (!url.empty()) {
 		((Image*)page->getComponents()[index])->setHref(url);
 	}
+	editComponent(page);
 }
 void CLI::editForm(WebPage* page, int index) {
 	cout << "Form action: ";
@@ -456,6 +461,7 @@ void CLI::editForm(WebPage* page, int index) {
 	string method = line_read();
 	((Form*)page->getComponents()[index])->setAction(action);
 	((Form*)page->getComponents()[index])->setMethod(method);
+	editComponent(page);
 }
 void CLI::editInput(WebPage* page, int index) {
 	string type = ((Input*)page->getComponents()[index])->getType();
@@ -468,6 +474,7 @@ void CLI::editInput(WebPage* page, int index) {
 	else if (type == "submit") {
 		editSubmit(page, index);
 	}
+	editComponent(page);
 }
 void CLI::editText(WebPage* page, int index) {
 	cout << "Input name: ";
@@ -481,6 +488,7 @@ void CLI::editText(WebPage* page, int index) {
 	if (!value.empty()) {
 		((Input*)page->getComponents()[index])->setValue(value);
 	}
+	editComponent(page);
 }
 void CLI::editPassword(WebPage* page, int index) {
 	cout << "Input name: ";
@@ -494,11 +502,13 @@ void CLI::editPassword(WebPage* page, int index) {
 	if (!value.empty()) {
 		((Input*)page->getComponents()[index])->setValue(value);
 	}
+	editComponent(page);
 }
 void CLI::editSubmit(WebPage* page, int index) {
 	cout << "Input value: ";
 	string value = line_read();
 	((Input*)page->getComponents()[index])->setValue(value);
+	editComponent(page);
 }
 void CLI::editTable(WebPage* page, int index) {
 	cout << "Table headers (Optional): ";
@@ -518,12 +528,13 @@ void CLI::editTable(WebPage* page, int index) {
 		footer = line_read();
 	}
 	((Table*)page->getComponents()[index])->setFooters(footers);
+	editComponent(page);
 }
 void CLI::removeComponent(WebPage* page) {
 	componentsList(page);
 	cout << "Component to remove: ";
-	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	int choice = 0;
 	choice=number_read();
 	page->remove(page->getComponents()[choice]);
+	editComponent(page);
 }

@@ -5,7 +5,7 @@
 
 class Input : public WebComponent {
 private:
-    const std::string className;
+    const std::string className = "Input";
     std::vector<std::string> types;
     std::string type;
     std::string name;

@@ -8,7 +8,7 @@
 
 class Form : public WebComponent {
 private:
-    std::string className;
+    const std::string className = "Form";
     std::string action;
     std::string method;
     std::vector<WebComponent*> components;
