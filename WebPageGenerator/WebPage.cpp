@@ -2,7 +2,8 @@
 #include<string>
 #include<vector>
 #include<fstream>
-
+#include<direct.h>
+#include <io.h>
 using namespace std;
 
 WebPage::WebPage(string filename, string title, string charset) : filename(filename), title(title), charset(charset) {
@@ -130,10 +131,41 @@ string WebPage::generateHTML() {
     return html;
 }
 
+vector<std::string> WebPage::split(std::string s, char ch)
+{
+    vector<string> res;
+    string tmp = "";
+    for (int i = 0; i < s.size(); i++)
+        if (s[i] == ch)
+        {
+            res.push_back(tmp);
+            tmp = "";
+        }
+        else
+            tmp += s[i];
+    if (tmp.size())
+        res.push_back(tmp);
+    return res;
+}
+
 void WebPage::save(string path) {
+    // make dir
+    char PATH_SEPERATOR;
+    if (path.find("/") != string::npos)
+        PATH_SEPERATOR = '/';
+    else if (path.find("\\") != string::npos)
+        PATH_SEPERATOR = '\\';
+    vector<string> dict = split(path, PATH_SEPERATOR);
+    string temp = "";
+    for (int i = 0; i < dict.size() - 1; i++)
+    {
+        temp += dict[i] + PATH_SEPERATOR;
+        _mkdir(temp.c_str());
+    }
+    // save file
+    temp += dict[dict.size() - 1];
     ofstream file;
-    file.imbue(locale("chs"));
-    file.open(path, ios::out);
+    file.open(temp,ios::out);
     file << generateHTML();
     file.close();
 }

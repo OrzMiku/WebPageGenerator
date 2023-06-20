@@ -12,7 +12,7 @@ private:
     std::string description;
     std::vector<std::string> keywords;
     std::vector<WebComponent*> components;
-
+    std::vector<std::string> split(std::string s, char ch);
 public:
     // Constructor
     WebPage(std::string filename, std::string title, std::string charset = "utf-8");
