@@ -18,5 +18,76 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="WebComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Heading.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Paragraph.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Form.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Select.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Table.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WebPage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Project.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CLI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WebComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Heading.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Paragraph.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Form.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Select.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Table.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WebPage.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Project.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CLI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EcyHTML.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

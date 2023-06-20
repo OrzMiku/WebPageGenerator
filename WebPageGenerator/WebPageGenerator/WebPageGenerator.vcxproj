@@ -127,7 +127,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CLI.cpp" />
+    <ClCompile Include="Form.cpp" />
+    <ClCompile Include="Heading.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Paragraph.cpp" />
+    <ClCompile Include="Project.cpp" />
+    <ClCompile Include="Select.cpp" />
+    <ClCompile Include="Table.cpp" />
+    <ClCompile Include="WebComponent.cpp" />
+    <ClCompile Include="WebPage.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CLI.h" />
+    <ClInclude Include="EcyHTML.h" />
+    <ClInclude Include="Form.h" />
+    <ClInclude Include="Heading.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Paragraph.h" />
+    <ClInclude Include="Project.h" />
+    <ClInclude Include="Select.h" />
+    <ClInclude Include="Table.h" />
+    <ClInclude Include="WebComponent.h" />
+    <ClInclude Include="WebPage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
