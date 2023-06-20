@@ -3,7 +3,8 @@
 using namespace std;
 
 // 构造函数实现
-Image::Image(string src, string alt, string href) : src(src), alt(alt), href(href) {}
+Image::Image(string 
+    , string alt, string href) : src(src), alt(alt), href(href) {}
 
 // getter函数实现
 string Image::getClassName() {

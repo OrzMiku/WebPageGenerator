@@ -44,4 +44,8 @@ public:
     void editSubmit(WebPage* page, int index);
     void editTable(WebPage* page, int index);
     void removeComponent(WebPage* page);
+    std::vector<std::string> lines_read();
+    std::string line_read();
+    std::string word_read();
+    int number_read();
 };

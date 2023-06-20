@@ -26,7 +26,37 @@ vector<string> CLI::split(string s, char ch)
 	if (tmp.size()) res.push_back(tmp);
 	return res;
 }
-
+vector<string> CLI::lines_read()
+{
+	vector<string> v;
+	string s; getline(cin, s);
+	while (s.size())
+	{
+		v.push_back(s);
+		getline(cin, s);
+	}
+	return v;
+}
+string CLI::line_read()
+{
+	string s;
+	getline(cin, s);
+	return s;
+}
+string CLI::word_read()
+{
+	string s;
+	cin >> s;
+	cin.ignore();
+	return s;
+}
+int CLI::number_read()
+{
+	int num;
+	cin >> num;
+	cin.ignore();
+	return num;
+}
 CLI::CLI() {
 	project = NULL;
 	mainMenu();
@@ -35,7 +65,7 @@ void CLI::mainMenu() {
 	cout << "1. New Project" << endl;
 	cout << "0. Exit" << endl;
 	int choice = 0;
-	cin >> choice;
+	choice=number_read();
 	switch (choice) {
 	case 0:
 		exit(0);
@@ -51,11 +81,9 @@ void CLI::mainMenu() {
 }
 void CLI::newProject() {
 	cout << "Project name: ";
-	string name;
-	cin >> name;
+	string name = line_read();
 	cout << "Project path: ";
-	string path;
-	cin >> path;
+	string path = line_read();
 	project = new Project(name, path);
 	newPage();
 }
@@ -64,8 +92,7 @@ void CLI::projectMenu() {
 	cout << "2. Edit Page" << endl;
 	cout << "3. Save Project" << endl;
 	cout << "0. Back" << endl;
-	int choice = 0;
-	cin >> choice;
+	int choice = number_read();
 	switch (choice) {
 	case 0:
 		mainMenu();
@@ -86,8 +113,7 @@ void CLI::pageList() {
 		cout << i + 1 << ". " << project->getPages()[i]->getTitle() << endl;
 	}
 	cout << "0. Back" << endl;
-	int choice = 0; cin >> choice;
-	cin >> choice;
+	int choice = number_read();
 	if (choice == 0) {
 		projectMenu();
 	}
@@ -97,20 +123,15 @@ void CLI::pageList() {
 }
 void CLI::newPage() {
 	cout << "Page Filename: ";
-	string filename;
-	cin >> filename;
+	string filename = word_read();
 	cout << "Page title: ";
-	string title;
-	cin >> title;
+	string title = line_read();
 	cout << "Page charset: ";
-	string charset;
-	cin >> charset;
+	string charset = word_read();
 	cout << "Page description: ";
-	string description;
-	cin >> description;
+	string description = line_read();
 	cout << "Page keywords: ";
-	string keywords;
-	cin >> keywords;
+	string keywords = line_read();
 	WebPage* page = new WebPage(filename, title, description, split(keywords, ','), charset);
 	project->add(page);
 	pageMenu(page);
@@ -124,9 +145,7 @@ void CLI::pageMenu(WebPage* page) {
 	cout << "6. Edit Component" << endl;
 	cout << "7. Remove Component" << endl;
 	cout << "0. Back" << endl;
-	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	int choice = 0;
-	cin >> choice;
+	int choice = number_read();
 	switch (choice) {
 	case 0:
 		projectMenu();
@@ -156,29 +175,25 @@ void CLI::pageMenu(WebPage* page) {
 }
 void CLI::editTitle(WebPage* page) {
 	cout << "New title: ";
-	string title;
-	cin >> title;
+	string title = line_read();
 	page->setTitle(title);
 	pageMenu(page);
 }
 void CLI::editCharset(WebPage* page) {
 	cout << "New charset: ";
-	string charset;
-	cin >> charset;
+	string charset = word_read();
 	page->setCharset(charset);
 	pageMenu(page);
 }
 void CLI::editDescription(WebPage* page) {
 	cout << "New description: ";
-	string description;
-	cin >> description;
+	string description = line_read();
 	page->setDescription(description);
 	pageMenu(page);
 }
 void CLI::editKeywords(WebPage* page) {
 	cout << "New keywords: ";
-	string keywords;
-	cin >> keywords;
+	string keywords = line_read();
 	page->setKeywords(split(keywords, ','));
 	pageMenu(page);
 }
@@ -190,8 +205,7 @@ void CLI::addComponent(WebPage* page) {
 	cout << "5. Add Table" << endl;
 	cout << "0. Back" << endl;
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	int choice = 0;
-	cin >> choice;
+	int choice = number_read();
 	switch (choice) {
 	case 0:
 		pageMenu(page);
@@ -217,9 +231,7 @@ void CLI::addText(WebPage* page) {
 	cout << "1. Heading" << endl;
 	cout << "2. Paragraph" << endl;
 	cout << "0. Back" << endl;
-	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	int choice = 0;
-	cin >> choice;
+	int choice = number_read();
 	switch (choice) {
 	case 1:
 		addHeading(page);
@@ -234,14 +246,11 @@ void CLI::addText(WebPage* page) {
 }
 void CLI::addHeading(WebPage* page) {
 	cout << "Heading level: ";
-	int level;
-	cin >> level;
+	int level = number_read();
 	cout << "Heading text: ";
-	string text;
-	cin >> text;
+	string text = line_read();
 	cout << "Url (Optional): ";
-	string url;
-	cin >> url;
+	string url = line_read();
 	Heading* heading;
 	if (!url.empty()) {
 		heading = new Heading(text, url, level);
@@ -254,11 +263,9 @@ void CLI::addHeading(WebPage* page) {
 }
 void CLI::addParagraph(WebPage* page) {
 	cout << "Paragraph text: ";
-	string text;
-	cin >> text;
+	string text = line_read();
 	cout << "Url (Optional): ";
-	string url;
-	cin >> url;
+	string url = line_read();
 	Paragraph* paragraph;
 	if (!url.empty()) {
 		paragraph = new Paragraph(text, url);
@@ -271,14 +278,11 @@ void CLI::addParagraph(WebPage* page) {
 }
 void CLI::addImage(WebPage* page) {
 	cout << "Image url: ";
-	string src;
-	cin >> src;
+	string src = line_read();
 	cout << "Image description: ";
-	string description;
-	cin >> description;
+	string description = line_read();
 	cout << "Url (Optional): ";
-	string url;
-	cin >> url;
+	string url = line_read();
 	Image* image;
 	if (!url.empty()) {
 		image = new Image(src, description, url);
@@ -291,11 +295,9 @@ void CLI::addImage(WebPage* page) {
 }
 void CLI::addForm(WebPage* page) {
 	cout << "Form action: ";
-	string action;
-	cin >> action;
+	string action = line_read();
 	cout << "Form method: ";
-	string method;
-	cin >> method;
+	string method = line_read();
 	Form* form = new Form(action, method);
 	page->add(form);
 	addComponent(page);
@@ -306,8 +308,7 @@ void CLI::addInput(WebPage* page) {
 	cout << "3. Submit" << endl;
 	cout << "Input type: ";
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	int choice = 0;
-	cin >> choice;
+	int choice =number_read();
 	switch (choice) {
 	case 1:
 		addTextInput(page);
@@ -322,14 +323,11 @@ void CLI::addInput(WebPage* page) {
 }
 void CLI::addTextInput(WebPage* page) {
 	cout << "Input name: ";
-	string name;
-	cin >> name;
+	string name = line_read();
 	cout << "Input value (Optional): ";
-	string value;
-	cin >> value;
+	string value = line_read();
 	cout << "Input Placeholder: ";
-	string placeholder;
-	cin >> placeholder;
+	string placeholder = line_read();
 	Input* text = new Input("text", name, placeholder);
 	if (!value.empty()) {
 		text->setValue(value);
@@ -339,14 +337,11 @@ void CLI::addTextInput(WebPage* page) {
 }
 void CLI::addPassword(WebPage* page) {
 	cout << "Input name: ";
-	string name;
-	cin >> name;
+	string name = line_read();
 	cout << "Input value (Optional): ";
-	string value;
-	cin >> value;
+	string value = line_read();
 	cout << "Input Placeholder: ";
-	string placeholder;
-	cin >> placeholder;
+	string placeholder = line_read();
 	Input* password = new Input("password", name, placeholder);
 	if (!value.empty()) {
 		password->setValue(value);
@@ -356,8 +351,7 @@ void CLI::addPassword(WebPage* page) {
 }
 void CLI::addSubmit(WebPage* page) {
 	cout << "Input value: ";
-	string value;
-	cin >> value;
+	string value = line_read();
 	Input* submit = new Input("submit", value);
 	page->add(submit);
 	addComponent(page);
@@ -365,31 +359,28 @@ void CLI::addSubmit(WebPage* page) {
 void CLI::addTable(WebPage* page) {
 	vector<string> headers;
 	cout << "Table headers (Optional): ";
-	string header;
-	cin >> header;
+	string header = line_read();
 	while (!header.empty()) {
 		headers.push_back(header);
-		cin >> header;
+		header= line_read();
 	}
 	vector<vector<string>> data;
 	cout << "Table data: ";
-	string datum;
-	cin >> datum;
+	string datum = line_read();
 	while (!datum.empty()) {
 		vector<string> row;
 		while (!datum.empty()) {
 			row.push_back(datum);
-			cin >> datum;
+			datum= line_read();
 		}
 		data.push_back(row);
 	}
 	vector<string> footers;
 	cout << "Table footers (Optional): ";
-	string footer;
-	cin >> footer;
+	string footer = line_read();
 	while (!footer.empty()) {
 		footers.push_back(footer);
-		cin >> footer;
+		footer = line_read();;
 	}
 	Table* table = new Table(data);
 	if (!headers.empty()) {
@@ -411,7 +402,7 @@ void CLI::editComponent(WebPage* page) {
 	cout << "Component to edit: ";
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	int choice = 0;
-	cin >> choice;
+	choice=number_read();
 	string className = page->getComponents()[choice]->getClassName();
 	if (className == "Heading") {
 		editHeading(page, choice);
@@ -434,30 +425,24 @@ void CLI::editComponent(WebPage* page) {
 }
 void CLI::editHeading(WebPage* page, int index) {
 	cout << "Heading text: ";
-	string text;
-	cin >> text;
+	string text = line_read();
 	cout << "Heading level: ";
-	int level;
-	cin >> level;
+	int level = number_read();
 	((Heading*)page->getComponents()[index])->setValue(text);
 	((Heading*)page->getComponents()[index])->setLevel(level);
 }
 void CLI::editParagraph(WebPage* page, int index) {
 	cout << "Paragraph text: ";
-	string text;
-	cin >> text;
+	string text = line_read();
 	((Paragraph*)page->getComponents()[index])->setValue(text);
 }
 void CLI::editImage(WebPage* page, int index) {
 	cout << "Image url: ";
-	string src;
-	cin >> src;
+	string src =  line_read();
 	cout << "Image description: ";
-	string description;
-	cin >> description;
+	string description = line_read();
 	cout << "Url (Optional): ";
-	string url;
-	cin >> url;
+	string url = line_read();
 	((Image*)page->getComponents()[index])->setSrc(src);
 	((Image*)page->getComponents()[index])->setAlt(description);
 	if (!url.empty()) {
@@ -466,11 +451,9 @@ void CLI::editImage(WebPage* page, int index) {
 }
 void CLI::editForm(WebPage* page, int index) {
 	cout << "Form action: ";
-	string action;
-	cin >> action;
+	string action = line_read();
 	cout << "Form method: ";
-	string method;
-	cin >> method;
+	string method = line_read();
 	((Form*)page->getComponents()[index])->setAction(action);
 	((Form*)page->getComponents()[index])->setMethod(method);
 }
@@ -488,14 +471,11 @@ void CLI::editInput(WebPage* page, int index) {
 }
 void CLI::editText(WebPage* page, int index) {
 	cout << "Input name: ";
-	string name;
-	cin >> name;
+	string name = line_read();
 	cout << "Input value (Optional): ";
-	string value;
-	cin >> value;
+	string value = line_read();
 	cout << "Input Placeholder: ";
-	string placeholder;
-	cin >> placeholder;
+	string placeholder = line_read();
 	((Input*)page->getComponents()[index])->setName(name);
 	((Input*)page->getComponents()[index])->setPlaceholder(placeholder);
 	if (!value.empty()) {
@@ -504,14 +484,11 @@ void CLI::editText(WebPage* page, int index) {
 }
 void CLI::editPassword(WebPage* page, int index) {
 	cout << "Input name: ";
-	string name;
-	cin >> name;
+	string name = line_read();
 	cout << "Input value (Optional): ";
-	string value;
-	cin >> value;
+	string value = line_read();
 	cout << "Input Placeholder: ";
-	string placeholder;
-	cin >> placeholder;
+	string placeholder = line_read();
 	((Input*)page->getComponents()[index])->setName(name);
 	((Input*)page->getComponents()[index])->setPlaceholder(placeholder);
 	if (!value.empty()) {
@@ -520,27 +497,25 @@ void CLI::editPassword(WebPage* page, int index) {
 }
 void CLI::editSubmit(WebPage* page, int index) {
 	cout << "Input value: ";
-	string value;
-	cin >> value;
+	string value = line_read();
 	((Input*)page->getComponents()[index])->setValue(value);
 }
 void CLI::editTable(WebPage* page, int index) {
 	cout << "Table headers (Optional): ";
 	vector<string> headers;
 	vector<string> footers;
-	string header;
-	cin >> header;
+	string header = line_read();
 	while (!header.empty()) {
 		headers.push_back(header);
-		cin >> header;
+		header = line_read();
 	}
 	((Table*)page->getComponents()[index])->setHeaders(headers);
 	cout << "Table footers (Optional): ";
 	string footer;
-	cin >> footer;
+	footer = line_read();
 	while (!footer.empty()) {
 		footers.push_back(footer);
-		cin >> footer;
+		footer = line_read();
 	}
 	((Table*)page->getComponents()[index])->setFooters(footers);
 }
@@ -549,6 +524,6 @@ void CLI::removeComponent(WebPage* page) {
 	cout << "Component to remove: ";
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	int choice = 0;
-	cin >> choice;
+	choice=number_read();
 	page->remove(page->getComponents()[choice]);
 }
