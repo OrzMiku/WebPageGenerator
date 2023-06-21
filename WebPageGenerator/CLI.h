@@ -11,6 +11,7 @@ private:
 
 public:
     CLI();
+    void preview(WebPage* page);
     void mainMenu();
     void newProject();
     void projectMenu();

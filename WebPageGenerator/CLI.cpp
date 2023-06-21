@@ -9,8 +9,28 @@
 #include "Form.h"
 #include "Input.h"
 #include "Table.h"
+#include "direct.h"
+
 
 using namespace std;
+
+void CLI::preview(WebPage* page) {
+	// 保存文件
+	project->save();
+	string chromePath = "C:\\Users\\Administrator\\Desktop\\Chrome\\Application\\chrome.exe";
+	char* temp = _getcwd(NULL, 0);
+	string path;
+	if (temp) {
+		path = temp;
+	}
+	string htmlFilePath = path + "\\" + project->getPath() + "\\" + page->getFilename() + ".html"; // 本地HTML文件的路径
+
+	// 构建系统命令
+	string command = chromePath + " file://" + htmlFilePath;
+	// 在系统命令行中执行命令
+	system(command.c_str());
+	pageMenu(page);
+}
 
 vector<string> CLI::split(string s, char ch)
 {
@@ -26,6 +46,7 @@ vector<string> CLI::split(string s, char ch)
 	if (tmp.size()) res.push_back(tmp);
 	return res;
 }
+
 vector<string> CLI::lines_read()
 {
 	vector<string> v;
@@ -37,6 +58,7 @@ vector<string> CLI::lines_read()
 	}
 	return v;
 }
+
 string CLI::line_read()
 {
 	string s;
@@ -151,6 +173,7 @@ void CLI::pageMenu(WebPage* page) {
 	cout << "5. Add Component" << endl;
 	cout << "6. Edit Component" << endl;
 	cout << "7. Remove Component" << endl;
+	cout << "8. Preview" << endl;
 	cout << "0. Back" << endl;
 	cout << "=========================" << endl;
 	int choice = number_read();
@@ -178,6 +201,9 @@ void CLI::pageMenu(WebPage* page) {
 		break;
 	case 7:
 		removeComponent(page);
+		break;
+	case 8:
+		preview(page);
 		break;
 	}
 }
