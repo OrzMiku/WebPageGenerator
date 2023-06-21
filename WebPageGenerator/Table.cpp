@@ -12,6 +12,9 @@ Table::Table(vector<vector<string>> data, vector<string> headers, vector<string>
 	: data(data), headers(headers), footers(footers) {}
 
 // Getter函数的实现
+string Table::getId() {
+	return id;
+}
 string Table::getClassName() {
 	return className;
 }
@@ -29,6 +32,9 @@ vector<string> Table::getFooters() {
 }
 
 // Setter函数的实现
+void Table::setId(string id) {
+	this->id = id;
+}
 void Table::setData(vector<vector<string>> data) {
 	this->data = data;
 }

@@ -27,6 +27,8 @@ public:
     void addParagraph(WebPage* page);
     void addImage(WebPage* page);
     void addForm(WebPage* page);
+    std::vector<WebComponent*> formList(WebPage* page);
+    void bindToForm(WebPage* page, int InputChoice);
     void addInput(WebPage* page);
     void addTextInput(WebPage* page);
     void addPassword(WebPage* page);

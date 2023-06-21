@@ -6,6 +6,12 @@ using namespace std;
 Paragraph::Paragraph(string value, string href) : value(value), href(href) {}
 
 // getter函数的实现
+void Paragraph::setId(string id) {
+    this->id = id;
+}
+string Paragraph::getId() {
+    return id;
+}
 string Paragraph::getClassName() {
     return className;
 }

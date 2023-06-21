@@ -6,6 +6,7 @@
 class Input : public WebComponent {
 private:
     const std::string className = "Input";
+    std::string id;
     std::vector<std::string> types;
     std::string type;
     std::string name;
@@ -19,6 +20,7 @@ public:
     Input(std::string type, std::string name, std::string value, std::string placeholder);
 
     // Getter
+    std::string getId();
     std::string getClassName();
     std::string getType();
     std::string getName();
@@ -26,6 +28,7 @@ public:
     std::string getPlaceholder();
 
     // Setter
+    void setId(std::string id);
     void setType(std::string type);
     void setName(std::string name);
     void setValue(std::string value);

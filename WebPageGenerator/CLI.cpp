@@ -62,8 +62,10 @@ CLI::CLI() {
 	mainMenu();
 }
 void CLI::mainMenu() {
+	cout << "======= Main Menu =======" << endl;
 	cout << "1. New Project" << endl;
 	cout << "0. Exit" << endl;
+	cout << "=========================" << endl;
 	int choice = 0;
 	choice=number_read();
 	switch (choice) {
@@ -80,6 +82,7 @@ void CLI::mainMenu() {
 	}
 }
 void CLI::newProject() {
+	cout << "======= New Project =======" << endl;
 	cout << "Project name: ";
 	string name = line_read();
 	cout << "Project path: ";
@@ -88,10 +91,12 @@ void CLI::newProject() {
 	newPage();
 }
 void CLI::projectMenu() {
+	cout << "======= Project Menu =======" << endl;
 	cout << "1. New Page" << endl;
 	cout << "2. Edit Page" << endl;
 	cout << "3. Save Project" << endl;
 	cout << "0. Back" << endl;
+	cout << "============================" << endl;
 	int choice = number_read();
 	switch (choice) {
 	case 0:
@@ -108,7 +113,7 @@ void CLI::projectMenu() {
 	}
 }
 void CLI::pageList() {
-	cout << "Page List" << endl;
+	cout << "======= Page List =======" << endl;
 	for (int i = 0; i < project->getPages().size(); i++) {
 		cout << i + 1 << ". " << project->getPages()[i]->getTitle() << endl;
 	}
@@ -122,6 +127,7 @@ void CLI::pageList() {
 	}
 }
 void CLI::newPage() {
+	cout << "======= New Page =======" << endl;
 	cout << "Page Filename: ";
 	string filename = word_read();
 	cout << "Page title: ";
@@ -137,6 +143,7 @@ void CLI::newPage() {
 	pageMenu(page);
 }
 void CLI::pageMenu(WebPage* page) {
+	cout << "======= Page Menu =======" << endl;
 	cout << "1. Edit Title" << endl;
 	cout << "2. Edit Charset" << endl;
 	cout << "3. Edit Description" << endl;
@@ -145,6 +152,7 @@ void CLI::pageMenu(WebPage* page) {
 	cout << "6. Edit Component" << endl;
 	cout << "7. Remove Component" << endl;
 	cout << "0. Back" << endl;
+	cout << "=========================" << endl;
 	int choice = number_read();
 	switch (choice) {
 	case 0:
@@ -174,36 +182,42 @@ void CLI::pageMenu(WebPage* page) {
 	}
 }
 void CLI::editTitle(WebPage* page) {
+	cout << "======= Edit Title =======" << endl;
 	cout << "New title: ";
 	string title = line_read();
 	page->setTitle(title);
 	pageMenu(page);
 }
 void CLI::editCharset(WebPage* page) {
+	cout << "======= Edit Charset =======" << endl;
 	cout << "New charset: ";
 	string charset = word_read();
 	page->setCharset(charset);
 	pageMenu(page);
 }
 void CLI::editDescription(WebPage* page) {
+	cout << "======= Edit Description =======" << endl;
 	cout << "New description: ";
 	string description = line_read();
 	page->setDescription(description);
 	pageMenu(page);
 }
 void CLI::editKeywords(WebPage* page) {
+	cout << "======= Edit Keywords =======" << endl;
 	cout << "New keywords: ";
 	string keywords = line_read();
 	page->setKeywords(split(keywords, ','));
 	pageMenu(page);
 }
 void CLI::addComponent(WebPage* page) {
+	cout << "======= Add Component =======" << endl;
 	cout << "1. Add Text" << endl;
 	cout << "2. Add Image" << endl;
 	cout << "3. Add Form" << endl;
 	cout << "4. Add Input" << endl;
 	cout << "5. Add Table" << endl;
 	cout << "0. Back" << endl;
+	cout << "=============================" << endl;
 	int choice = number_read();
 	switch (choice) {
 	case 0:
@@ -227,9 +241,11 @@ void CLI::addComponent(WebPage* page) {
 	}
 }
 void CLI::addText(WebPage* page) {
+	cout << "======= Add Text =======" << endl;
 	cout << "1. Heading" << endl;
 	cout << "2. Paragraph" << endl;
 	cout << "0. Back" << endl;
+	cout << "========================" << endl;
 	int choice = number_read();
 	switch (choice) {
 	case 1:
@@ -244,12 +260,15 @@ void CLI::addText(WebPage* page) {
 	}
 }
 void CLI::addHeading(WebPage* page) {
+	cout << "======= Add Heading =======" << endl;
 	cout << "Heading level: ";
 	int level = number_read();
 	cout << "Heading text: ";
 	string text = line_read();
 	cout << "Url (Optional): ";
 	string url = line_read();
+	cout << "ID: ";
+	string id = word_read();
 	Heading* heading;
 	if (!url.empty()) {
 		heading = new Heading(text, url, level);
@@ -257,14 +276,18 @@ void CLI::addHeading(WebPage* page) {
 	else {
 		heading = new Heading(text, level);
 	}
+	heading->setId(id);
 	page->add(heading);
 	addComponent(page);
 }
 void CLI::addParagraph(WebPage* page) {
+	cout << "======= Add Paragraph =======" << endl;
 	cout << "Paragraph text: ";
 	string text = line_read();
 	cout << "Url (Optional): ";
 	string url = line_read();
+	cout << "ID: ";
+	string id = word_read();
 	Paragraph* paragraph;
 	if (!url.empty()) {
 		paragraph = new Paragraph(text, url);
@@ -272,16 +295,20 @@ void CLI::addParagraph(WebPage* page) {
 	else {
 		paragraph = new Paragraph(text);
 	}
+	paragraph->setId(id);
 	page->add(paragraph);
 	addComponent(page);
 }
 void CLI::addImage(WebPage* page) {
+	cout << "======= Add Image =======" << endl;
 	cout << "Image url: ";
 	string src = line_read();
 	cout << "Image description: ";
 	string description = line_read();
 	cout << "Url (Optional): ";
 	string url = line_read();
+	cout << "ID: ";
+	string id = word_read();
 	Image* image;
 	if (!url.empty()) {
 		image = new Image(src, description, url);
@@ -289,24 +316,59 @@ void CLI::addImage(WebPage* page) {
 	else {
 		image = new Image(src, description);
 	}
+	image->setId(id);
 	page->add(image);
 	addComponent(page);
 }
 void CLI::addForm(WebPage* page) {
+	cout << "======= Add Form =======" << endl;
 	cout << "Form action: ";
 	string action = line_read();
 	cout << "Form method: ";
 	string method = line_read();
+	cout << "ID: ";
+	string id = word_read();
 	Form* form = new Form(action, method);
+	form->setId(id);
 	page->add(form);
 	addComponent(page);
 }
+
+vector<WebComponent*> CLI::formList(WebPage* page) {
+	// 1. Heading 2. Form 3, Heading 4. Form
+	// 1. Form 2. Form
+	vector<WebComponent*> formList;
+	cout << "======= Form List =======" << endl;
+	int j = 0;
+	for (int i = 0; i < page->getComponents().size(); i++) {
+		if (((Form*)page->getComponents()[i])->getClassName() == "Form") {
+			cout << ++j << ". " << ((Form*)page->getComponents()[i])->getId() << endl;
+			formList.push_back(page->getComponents()[i]);
+		}
+	}
+	cout << "0. Back" << endl;
+	cout << "========================" << endl;
+	return formList;
+}
+
+void CLI::bindToForm(WebPage* page, int InputChoice) {
+	cout << "Bind To Form" << endl;
+	vector<WebComponent*> list = formList(page);
+	cout << "Choose form: ";
+	int choice = number_read();
+	if (choice != 0){
+		((Form*)list[choice - 1])->addComponent(page->getComponents()[InputChoice]);
+		page->remove(page->getComponents()[InputChoice]);
+	}
+}
+
 void CLI::addInput(WebPage* page) {
+	cout << "======= Add Input =======" << endl;
 	cout << "1. Text" << endl;
 	cout << "2. Password" << endl;
 	cout << "3. Submit" << endl;
 	cout << "Input type: ";
-	int choice =number_read();
+	int choice = number_read();
 	switch (choice) {
 	case 1:
 		addTextInput(page);
@@ -317,44 +379,63 @@ void CLI::addInput(WebPage* page) {
 	case 3:
 		addSubmit(page);
 		break;
+	default:
+		addComponent(page);
+		break;
 	}
 }
 void CLI::addTextInput(WebPage* page) {
+	cout << "======= Add Text Input =======" << endl;
 	cout << "Input name: ";
 	string name = line_read();
 	cout << "Input value (Optional): ";
 	string value = line_read();
 	cout << "Input Placeholder: ";
 	string placeholder = line_read();
+	cout << "ID: ";
+	string id = word_read();
 	Input* text = new Input("text", name, placeholder);
 	if (!value.empty()) {
 		text->setValue(value);
 	}
+	text->setId(id);
 	page->add(text);
+	bindToForm(page, (int)page->getComponents().size() - 1);
 	addComponent(page);
 }
 void CLI::addPassword(WebPage* page) {
+	cout << "======= Add Password Input =======" << endl;
 	cout << "Input name: ";
 	string name = line_read();
 	cout << "Input value (Optional): ";
 	string value = line_read();
 	cout << "Input Placeholder: ";
 	string placeholder = line_read();
+	cout << "ID: ";
+	string id = word_read();
 	Input* password = new Input("password", name, placeholder);
 	if (!value.empty()) {
 		password->setValue(value);
 	}
+	password->setId(id);
 	page->add(password);
+	bindToForm(page, (int)page->getComponents().size() - 1);
 	addComponent(page);
 }
 void CLI::addSubmit(WebPage* page) {
+	cout << "======= Add Submit Input =======" << endl;
 	cout << "Input value: ";
 	string value = line_read();
+	cout << "ID: ";
+	string id = word_read();
 	Input* submit = new Input("submit", value);
+	submit->setId(id);
 	page->add(submit);
+	bindToForm(page, (int)page->getComponents().size() - 1);
 	addComponent(page);
 }
 void CLI::addTable(WebPage* page) {
+	cout << "======= Add Table =======" << endl;
 	vector<string> headers;
 	cout << "Table headers (Optional): ";
 	string header = line_read();
@@ -380,6 +461,8 @@ void CLI::addTable(WebPage* page) {
 		footers.push_back(footer);
 		footer = line_read();;
 	}
+	cout << "ID: ";
+	string id = word_read();
 	Table* table = new Table(data);
 	if (!headers.empty()) {
 		table->setHeaders(headers);
@@ -387,15 +470,18 @@ void CLI::addTable(WebPage* page) {
 	if (!footers.empty()) {
 		table->setFooters(footers);
 	}
+	table->setId(id);
 	page->add(table);
 	addComponent(page);
 }
 void CLI::componentsList(WebPage* page) {
+	cout << "======= Component List =======" << endl;
 	for (int i = 0; i < page->getComponents().size(); i++) {
-		cout << i+1 << ". " << page->getComponents()[i]->getClassName() << endl;
+		cout << i+1 << ". " << page->getComponents()[i]->getId() << endl;
 	}
 }
 void CLI::editComponent(WebPage* page) {
+	cout << "======= Edit Component =======" << endl;
 	componentsList(page);
 	cout << "0. Back" << endl;
 	cout << "Component to edit: ";
@@ -426,6 +512,7 @@ void CLI::editComponent(WebPage* page) {
 	}
 }
 void CLI::editHeading(WebPage* page, int index) {
+	cout << "======= Edit Heading =======" << endl;
 	cout << "Heading text: ";
 	string text = line_read();
 	cout << "Heading level: ";
@@ -435,12 +522,14 @@ void CLI::editHeading(WebPage* page, int index) {
 	editComponent(page);
 }
 void CLI::editParagraph(WebPage* page, int index) {
+	cout << "======= Edit Paragraph =======" << endl;
 	cout << "Paragraph text: ";
 	string text = line_read();
 	((Paragraph*)page->getComponents()[index])->setValue(text);
 	editComponent(page);
 }
 void CLI::editImage(WebPage* page, int index) {
+	cout << "======= Edit Image =======" << endl;
 	cout << "Image url: ";
 	string src =  line_read();
 	cout << "Image description: ";
@@ -455,6 +544,7 @@ void CLI::editImage(WebPage* page, int index) {
 	editComponent(page);
 }
 void CLI::editForm(WebPage* page, int index) {
+	cout << "======= Edit Form =======" << endl;
 	cout << "Form action: ";
 	string action = line_read();
 	cout << "Form method: ";
@@ -464,6 +554,7 @@ void CLI::editForm(WebPage* page, int index) {
 	editComponent(page);
 }
 void CLI::editInput(WebPage* page, int index) {
+	cout << "======= Edit Input =======" << endl;
 	string type = ((Input*)page->getComponents()[index])->getType();
 	if (type == "text") {
 		editText(page, index);
@@ -477,6 +568,7 @@ void CLI::editInput(WebPage* page, int index) {
 	editComponent(page);
 }
 void CLI::editText(WebPage* page, int index) {
+	cout << "======= Edit Text Input =======" << endl;
 	cout << "Input name: ";
 	string name = line_read();
 	cout << "Input value (Optional): ";
@@ -488,9 +580,11 @@ void CLI::editText(WebPage* page, int index) {
 	if (!value.empty()) {
 		((Input*)page->getComponents()[index])->setValue(value);
 	}
+	bindToForm(page, index);
 	editComponent(page);
 }
 void CLI::editPassword(WebPage* page, int index) {
+	cout << "======= Edit Password Input =======" << endl;
 	cout << "Input name: ";
 	string name = line_read();
 	cout << "Input value (Optional): ";
@@ -502,15 +596,19 @@ void CLI::editPassword(WebPage* page, int index) {
 	if (!value.empty()) {
 		((Input*)page->getComponents()[index])->setValue(value);
 	}
+	bindToForm(page, index);
 	editComponent(page);
 }
 void CLI::editSubmit(WebPage* page, int index) {
+	cout << "======= Edit Submit Input =======" << endl;
 	cout << "Input value: ";
 	string value = line_read();
 	((Input*)page->getComponents()[index])->setValue(value);
+	bindToForm(page, index);
 	editComponent(page);
 }
 void CLI::editTable(WebPage* page, int index) {
+	cout << "======= Edit Table =======" << endl;
 	cout << "Table headers (Optional): ";
 	vector<string> headers;
 	vector<string> footers;
@@ -531,6 +629,7 @@ void CLI::editTable(WebPage* page, int index) {
 	editComponent(page);
 }
 void CLI::removeComponent(WebPage* page) {
+	cout << "======= Remove Component =======" << endl;
 	componentsList(page);
 	cout << "Component to remove: ";
 	int choice = 0;

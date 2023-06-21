@@ -13,6 +13,9 @@ Input::Input(string type, string name, string value, string placeholder)
     : type(type), name(name), value(value), placeholder(placeholder) {}
 
 // Getter函数的实现
+string Input::getId() {
+    return id;
+}
 string Input::getClassName() {
     return className;
 }
@@ -34,6 +37,9 @@ string Input::getPlaceholder() {
 }
 
 // Setter函数的实现
+void Input::setId(string id) {
+    this->id = id;
+}
 void Input::setType(string type) {
     this->type = type;
 }

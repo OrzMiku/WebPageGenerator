@@ -7,6 +7,9 @@ using namespace std;
 // Constructor
 Form::Form(string action, string method) : action(action), method(method) {}
 // Getter
+string Form::getId() {
+	return id;
+}
 string Form::getClassName() {
 	return className;
 }
@@ -20,6 +23,9 @@ vector<WebComponent*> Form::getComponents() {
 	return components;
 }
 // Setter
+void Form::setId(string id) {
+	this->id = id;
+}
 void Form::setAction(string action) {
 	this->action = action;
 }

@@ -8,6 +8,9 @@ using namespace std;
 Heading::Heading(string value, int level) : value(value), level(level) {}
 Heading::Heading(string value, string href, int level) : value(value), href(href), level(level) {}
 // Getter
+string Heading::getId() {
+	return id;
+}
 string Heading::getClassName() {
 	return className;
 }
@@ -21,6 +24,9 @@ int Heading::getLevel() {
 	return level;
 }
 // Setter
+void Heading::setId(string id) {
+	this->id = id;
+}
 void Heading::setLevel(int level) {
 	this->level = level;
 }

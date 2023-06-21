@@ -8,6 +8,7 @@
 class Table : public WebComponent {
 private:
     const std::string className = "Table";
+    std::string id;
     std::vector<std::vector<std::string>> data;
     std::vector<std::string> headers;
     std::vector<std::string> footers;
@@ -19,12 +20,14 @@ public:
     Table(std::vector<std::vector<std::string>> data, std::vector<std::string> headers, std::vector<std::string> footers);
 
     // Getter
+    std::string getId();
     std::string getClassName();
     std::vector<std::vector<std::string>> getData();
     std::vector<std::string> getHeaders();
     std::vector<std::string> getFooters();
 
     // Setter
+    void setId(std::string id);
     void setData(std::vector<std::vector<std::string>> data);
     void setHeaders(std::vector<std::string> headers);
     void setFooters(std::vector<std::string> footers);

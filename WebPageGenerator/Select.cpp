@@ -6,6 +6,12 @@ using namespace std;
 Select::Select(string name, vector<string> options) : name(name), options(options) {}
 
 // getter函数的实现
+void Select::setId(string id) {
+    this->id = id;
+}
+string Select::getId() {
+    return id;
+}
 string Select::getClassName() {
     return className;
 }

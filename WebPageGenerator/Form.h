@@ -9,6 +9,7 @@
 class Form : public WebComponent {
 private:
     const std::string className = "Form";
+    std::string id;
     std::string action;
     std::string method;
     std::vector<WebComponent*> components;
@@ -18,12 +19,14 @@ public:
     Form(std::string action = "", std::string method = "");
 
     // Getter
+    std::string getId();
     std::string getClassName();
     std::string getAction();
     std::string getMethod();
     std::vector<WebComponent*> getComponents();
 
     // Setter
+    void setId(std::string id);
     void setAction(std::string action);
     void setMethod(std::string method);
 
