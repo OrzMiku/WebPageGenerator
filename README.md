@@ -46,6 +46,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## 已知BUG
+
+- 没有对控制台输入校验
+- 若组件列表为空，依然可以进入编辑组件界面（页面列表也存在相同问题）。
+
 ## 更新日志
 
 - v1.0.5
