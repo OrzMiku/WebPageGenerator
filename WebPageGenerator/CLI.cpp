@@ -10,14 +10,13 @@
 #include "Input.h"
 #include "Table.h"
 #include "direct.h"
-
+#include <windows.h>
 
 using namespace std;
 
 void CLI::preview(WebPage* page) {
 	// 保存文件
 	project->save();
-	string chromePath = "C:\\Users\\Administrator\\Desktop\\Chrome\\Application\\chrome.exe";
 	char* temp = _getcwd(NULL, 0);
 	string path;
 	if (temp) {
@@ -25,10 +24,8 @@ void CLI::preview(WebPage* page) {
 	}
 	string htmlFilePath = path + "\\" + project->getPath() + "\\" + page->getFilename() + ".html"; // 本地HTML文件的路径
 
-	// 构建系统命令
-	string command = chromePath + " file://" + htmlFilePath;
-	// 在系统命令行中执行命令
-	system(command.c_str());
+	std::wstring wideFilePath(htmlFilePath.begin(), htmlFilePath.end());
+	ShellExecuteW(NULL, L"open", wideFilePath.c_str(), NULL, NULL, SW_SHOWNORMAL);
 	pageMenu(page);
 }
 
